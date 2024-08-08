@@ -41,31 +41,33 @@ public class UiautomatorTest {
 
     @Test
     public void testChangeEmptyText() {
-        var el1 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/userInput"));
+        var defaultText = driver.findElement(By.id("ru.netology.testing.uiautomator:id/textToBeChanged")).getText(); // получаем текст после запуска приложения, до выполнения каких-либо операций
+        var el1 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/userInput")); // поле для ввода текста
         el1.isDisplayed();
         el1.sendKeys("  ");
-        var el2 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/textToBeChanged"));
+        var el2 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/buttonChange")); // кнопка изменения текста
         el2.isDisplayed();
         el2.click();
-        var el7 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/textToBeChanged"));
+        var el7 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/textToBeChanged")); // получаем элеамент, в котором находится текст уже после выполнения операций
         el7.isDisplayed();
-        Assertions.assertEquals(el7.getText(), "Hello UiAutomator!");
+        Assertions.assertEquals(el7.getText(), defaultText);
     }
     @Test
     public void testChangeTextNewActivity() {
+        var textToSet = "2-4_Appium";
         var el3 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/userInput"));
         el3.isDisplayed();
-        el3.sendKeys("2-4_Appium");
+        el3.sendKeys(textToSet);
         var el4 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/buttonChange"));
         el4.isDisplayed();
         el4.click();
         var el5 = driver.findElement(By.id("ru.netology.testing.uiautomator:id/buttonActivity"));
         el5.isDisplayed();
         el5.click();
-//        var el6 = driver.findElementById("ru.netology.testing.uiautomator:id/text");
+//        let el6 = driver.findElementById("ru.netology.testing.uiautomator:id/text");
         var el6 = driver.findElement(By.xpath("//android.widget.TextView[@resource-id=\"ru.netology.testing.uiautomator:id/text\"]"));
         el6.isDisplayed();
-        Assertions.assertEquals(el6.getText(), "2-4_Appium");
+        Assertions.assertEquals(el6.getText(), textToSet);
     }
 
     @AfterEach

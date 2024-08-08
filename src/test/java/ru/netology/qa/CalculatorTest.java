@@ -1,6 +1,8 @@
 package ru.netology.qa;
 
 import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.android.AndroidDriver;
+import io.appium.java_client.ios.IOSDriver;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import ru.netology.qa.screens.MainScreen;
@@ -23,6 +25,7 @@ public class CalculatorTest {
     Platform platform = Platform.Android;
 
     private AppiumDriver driver;
+//private AndroidDriver driver;
     private URL getUrl() {
         try {
             return new URL("http://127.0.0.1:4723");
@@ -41,11 +44,14 @@ public class CalculatorTest {
             options.setCapability(DEVICE_NAME, "any name");
             options.setCapability(APP_PACKAGE, "com.google.android.calculator");
             options.setCapability(APP_ACTIVITY, "com.android.calculator2.Calculator");
+            options.setCapability("appium:automationName", "uiautomator2");
+            driver = new AndroidDriver(this.getUrl(), options);
         } else if (platform == Platform.iOS) {
             options.setCapability(PLATFORM_NAME, "iOS");
             options.setCapability(DEVICE_NAME, "iPhone 11");
             options.setCapability(BUNDLE_ID, "com.shubham-iosdev.Calculator-UI");
             options.setCapability(AUTOMATION_NAME, "XCUITest");
+            driver = new IOSDriver(this.getUrl(), options);
         }
         calculatorPage = new CalculatorPage(driver);
     }
